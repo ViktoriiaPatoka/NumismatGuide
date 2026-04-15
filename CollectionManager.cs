@@ -73,6 +73,30 @@ namespace NumismatGuide
             Coins.Add(newCoin);
         }
 
+        public void UpdateCoin(int index, Coin updatedCoin)
+        {
+            if (index < 0 || index >= Coins.Count)
+            {
+                throw new Exception("Монету не знайдено.");
+            }
+
+            Coin oldCoin = Coins[index];
+
+            Coins.RemoveAt(index);
+
+            try
+            {
+                AddCoin(updatedCoin);
+                Coins.RemoveAt(Coins.Count - 1);
+                Coins.Insert(index, updatedCoin);
+            }
+            catch
+            {
+                Coins.Insert(index, oldCoin);
+                throw;
+            }
+        }
+
         public void AddCollector(Collector newCollector)
         {
             if (newCollector.LastName != null)
@@ -147,6 +171,29 @@ namespace NumismatGuide
             }
 
             Collectors.Add(newCollector);
+        }
+
+        public void UpdateCollector(int index, Collector updatedCollector)
+        {
+            if (index < 0 || index >= Collectors.Count)
+            {
+                throw new Exception("Колекціонера не знайдено.");
+            }
+
+            Collector oldCollector = Collectors[index];
+            Collectors.RemoveAt(index);
+
+            try
+            {
+                AddCollector(updatedCollector);
+                Collectors.RemoveAt(Collectors.Count - 1);
+                Collectors.Insert(index, updatedCollector);
+            }
+            catch
+            {
+                Collectors.Insert(index, oldCollector);
+                throw;
+            }
         }
     }
 }
