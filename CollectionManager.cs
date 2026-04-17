@@ -97,6 +97,66 @@ namespace NumismatGuide
             }
         }
 
+        public void RemoveCoin(int index)
+        {
+            if (index < 0 || index >= Coins.Count)
+            {
+                throw new Exception("Монету не знайдено, або вона вже була видалена.");
+            }
+            Coins.RemoveAt(index);
+        }
+
+        public List<Coin> SearchCoins(string criterion, string query)
+        {
+            List<Coin> results = new List<Coin>();
+
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return new List<Coin>(Coins);
+            }
+
+            query = query.Trim().ToLower();
+
+            foreach (Coin item in Coins)
+            {
+                if (criterion == "Країна") 
+                {
+                    if (item.Country.ToLower().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                } 
+                
+                else if (criterion == "Матеріал")
+                {
+                    if (item.Material.ToLower().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+
+                else if (criterion == "Рік")
+                {
+                    if (!query.All(char.IsDigit))
+                    {
+                        throw new Exception("Для пошуку за роком введіть лише цифри.");
+                    }
+
+                    if (item.Year.ToString().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+            }
+
+            if (results.Count == 0)
+            {
+                throw new Exception("За вашим запитом нічого не знайдено.");
+            }
+
+            return results;
+        }
+
         public void AddCollector(Collector newCollector)
         {
             if (newCollector.LastName != null)
@@ -194,6 +254,74 @@ namespace NumismatGuide
                 Collectors.Insert(index, oldCollector);
                 throw;
             }
+        }
+
+        public void RemoveCollector(int index)
+        {
+            if (index < 0 || index >= Collectors.Count)
+            {
+                throw new Exception("Колекціонера не знайдено.");
+            }
+
+            Collectors.RemoveAt(index);
+        }
+
+        public List<Collector> SearchCollectors(string criterion, string query)
+        {
+            List<Collector> results = new List<Collector>();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return new List<Collector>(Collectors);
+            }
+
+            query = query.Trim().ToLower();
+
+            if (criterion == "Прізвище" || criterion == "Ім'я")
+            {
+                if (!query.All(c => char.IsLetter(c) || c == ' '))
+                {
+                    throw new Exception("Це поле повинно містити лише букви.");
+                }
+            }
+
+            foreach (Collector item in Collectors)
+            {
+                if (criterion == "Прізвище")
+                {
+                    if (item.LastName.ToLower().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+                else if (criterion == "Ім'я")
+                {
+                    if (item.FirstName.ToLower().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+                else if (criterion == "Країна")
+                {
+                    if (item.Country.ToLower().Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+                else if (criterion == "Телефон")
+                {
+                    if (item.PhoneNumber.Contains(query))
+                    {
+                        results.Add(item);
+                    }
+                }
+            }
+
+            if (results.Count == 0)
+            {
+                throw new Exception("Колекціонера не знайдено");
+            }
+
+            return results;
         }
     }
 }
