@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace NumismatGuide
 {
@@ -152,6 +153,94 @@ namespace NumismatGuide
             if (results.Count == 0)
             {
                 throw new Exception("За вашим запитом нічого не знайдено.");
+            }
+
+            return results;
+        }
+
+        public List<Coin> FilterCoins(string country, string material, string yearFromstr, string yearTostr)
+        {
+            if (string.IsNullOrWhiteSpace(country) && string.IsNullOrWhiteSpace(material) && string.IsNullOrWhiteSpace(yearFromstr) && string.IsNullOrWhiteSpace(yearTostr))
+            {
+                return new List<Coin>(Coins);
+            }
+
+            List<Coin> results = new List<Coin>();
+            int yearFrom = 0;
+            int yearTo = DateTime.Now.Year;
+
+            if (!string.IsNullOrWhiteSpace(yearFromstr))
+            {
+                if (!yearFromstr.All(char.IsDigit))
+                {
+                    throw new Exception("Рік має містити лише цифри.");
+                }
+
+                yearFrom = Convert.ToInt32(yearFromstr);
+
+                if (yearFrom <= 0 || yearFrom > DateTime.Now.Year)
+                {
+                    throw new Exception("Некоректний початковий рік.");
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(yearTostr))
+            {
+                if (!yearTostr.All(char.IsDigit))
+                {
+                    throw new Exception("Рік має містити лише цифри.");
+                }
+
+                yearTo = Convert.ToInt32(yearTostr);
+
+                if (yearTo <= 0 || yearTo > DateTime.Now.Year)
+                {
+                    throw new Exception("Некоректний кінцевий рік.");
+                }
+            }
+
+            if (yearFrom > yearTo)
+            {
+                throw new Exception("Некоректний діапазон років: початковий рік не може бути більшим за кінцевий.");
+            }
+
+            string searchCountry = string.IsNullOrWhiteSpace(country) ? "" : country.Trim().ToLower();
+            string searchMaterial = string.IsNullOrWhiteSpace(material) ? "" : material.Trim().ToLower();
+
+            foreach (Coin item in Coins)
+            {
+                bool match = true;
+
+                if (!string.IsNullOrWhiteSpace(searchCountry))
+                {
+                    if (!item.Country.Contains(searchCountry))
+                    {
+                        match = false;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(searchMaterial))
+                {
+                    if (!item.Material.Contains(searchMaterial))
+                    {
+                        match = false;
+                    }
+                }
+
+                if (item.Year < yearFrom || item.Year > yearTo)
+                {
+                    match = false;
+                }
+
+                if (match)
+                {
+                    results.Add(item);
+                }
+            }
+
+            if (results.Count == 0)
+            {
+                throw new Exception("Монет з такими параметрами не знайдено.");
             }
 
             return results;
@@ -319,6 +408,54 @@ namespace NumismatGuide
             if (results.Count == 0)
             {
                 throw new Exception("Колекціонера не знайдено");
+            }
+
+            return results;
+        }
+
+        public List<Collector> FilterCollectors(string country, string rareCoins)
+        {
+
+            List<Collector> results = new List<Collector>();
+
+            string searchCountry = string.IsNullOrWhiteSpace(country) ? "" : country.Trim().ToLower();
+            string searchRare = string.IsNullOrWhiteSpace(rareCoins) ? "" : rareCoins.Trim().ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchCountry) && string.IsNullOrWhiteSpace(searchRare))
+            {
+                return new List<Collector>(Collectors);
+            }
+
+            foreach (Collector item in Collectors)
+            {
+                bool match = true;
+
+                if (!string.IsNullOrWhiteSpace(searchCountry))
+                {
+                    if (!item.Country.Contains(searchCountry))
+                    {
+                        match = false;
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(searchRare))
+                {
+                    if (string.IsNullOrWhiteSpace(item.RareCoinsInfo) ||
+                        !item.RareCoinsInfo.Contains(searchRare))
+                    {
+                        match = false;
+                    }
+                }
+
+                if (match)
+                {
+                    results.Add(item);
+                }
+            }
+
+            if (results.Count == 0)
+            {
+                throw new Exception("Колекціонерів з такими параметрами не знайдено.");
             }
 
             return results;
