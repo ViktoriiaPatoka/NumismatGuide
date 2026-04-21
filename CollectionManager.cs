@@ -9,36 +9,67 @@ namespace NumismatGuide
 {
     public class CollectionManager
     {
-        private readonly List<string> allowedCountries = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-            .Select(x => new RegionInfo(x.Name).DisplayName.ToLower())
-            .Distinct()
-            .OrderBy(name => name)
-            .ToList();
+        private static string ToTitleCase(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return input;
+            var uk = new CultureInfo("uk-UA");
+            input = input.Trim().ToLower(uk);
+            return uk.TextInfo.ToTitleCase(input);
+        }
 
         public List<Coin> Coins { get; set; } = new List<Coin>();
         public List<Collector> Collectors { get; set; } = new List<Collector>();
+
+        private readonly List<string> allowedCountries;
+        public CollectionManager()
+        {
+            var uk = new CultureInfo("uk-UA");
+            var originalUi = CultureInfo.CurrentUICulture;
+            CultureInfo.CurrentUICulture = uk;
+
+            allowedCountries = new List<string>();
+            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+            foreach (var culture in cultures)
+            {
+                var region = new RegionInfo(culture.Name);
+                string countryName = region.DisplayName.ToLowerInvariant();
+
+                if (!allowedCountries.Contains(countryName))
+                {
+                    allowedCountries.Add(countryName);
+                }
+            }
+
+            allowedCountries.Sort();
+            CultureInfo.CurrentUICulture = originalUi;
+        }
 
         public void AddCoin(Coin newCoin)
         {
             if (newCoin.Country != null)
             {
-                newCoin.Country = newCoin.Country.Trim().ToLower();
+                newCoin.Country = newCoin.Country.Trim();
             }
             if (newCoin.Material != null)
             {
-                newCoin.Material = newCoin.Material.Trim().ToLower();
+                newCoin.Material = newCoin.Material.Trim();
             }
             if (newCoin.Features != null)
             {
-                newCoin.Features = newCoin.Features.Trim().ToLower();
+                newCoin.Features = newCoin.Features.Trim();
             }
 
-            if (string.IsNullOrWhiteSpace(newCoin.Country) || string.IsNullOrWhiteSpace(newCoin.Material))
+            string countryLower = newCoin.Country?.ToLowerInvariant();
+            string materialLower = newCoin.Material?.ToLowerInvariant();
+            string featuresLower = newCoin.Features?.ToLowerInvariant();
+
+            if (string.IsNullOrWhiteSpace(countryLower) || string.IsNullOrWhiteSpace(materialLower))
             {
                 throw new Exception("Всі обов'язкові поля мають бути заповнені!");
             }
 
-            if (!allowedCountries.Contains(newCoin.Country))
+            if (!allowedCountries.Contains(countryLower))
             {
                 throw new Exception("Такої країни не існує. Введіть існуючу назву.");
             }
@@ -53,22 +84,29 @@ namespace NumismatGuide
                 throw new Exception("Тираж невірний. Введіть вірний тираж.");
             }
 
-            if (!string.IsNullOrWhiteSpace(newCoin.Features) &&
-                newCoin.Features.All(char.IsDigit))
+            if (!string.IsNullOrWhiteSpace(featuresLower) &&
+                featuresLower.All(char.IsDigit))
             {
                 throw new Exception("Поле 'Особливості' не може містити лише цифри.");
             }
 
             foreach (Coin item in Coins)
             {
-                if ((item.Country.Trim().ToLower() == newCoin.Country) &&
+                if (string.Equals(item.Country, newCoin.Country, StringComparison.OrdinalIgnoreCase) &&
                     (item.Year == newCoin.Year) &&
-                    (item.Material.Trim().ToLower() == newCoin.Material) &&
+                    string.Equals(item.Material, newCoin.Material, StringComparison.OrdinalIgnoreCase) &&
                     (item.Circulation == newCoin.Circulation) &&
-                    (item.Features.Trim().ToLower() == newCoin.Features))
+                    string.Equals(item.Features ?? string.Empty, newCoin.Features ?? string.Empty, StringComparison.OrdinalIgnoreCase))
                 {
                     throw new Exception("Ця монета вже є в базі.");
                 }
+            }
+
+            newCoin.Country = ToTitleCase(newCoin.Country);
+            newCoin.Material = ToTitleCase(newCoin.Material);
+            if (!string.IsNullOrWhiteSpace(newCoin.Features))
+            {
+                newCoin.Features = ToTitleCase(newCoin.Features);
             }
 
             Coins.Add(newCoin);
@@ -122,7 +160,7 @@ namespace NumismatGuide
             {
                 if (criterion == "Країна") 
                 {
-                    if (item.Country.ToLower().Contains(query))
+                    if (!string.IsNullOrEmpty(item.Country) && item.Country.Contains(query, StringComparison.OrdinalIgnoreCase))
                     {
                         results.Add(item);
                     }
@@ -130,7 +168,7 @@ namespace NumismatGuide
                 
                 else if (criterion == "Матеріал")
                 {
-                    if (item.Material.ToLower().Contains(query))
+                    if (!string.IsNullOrEmpty(item.Material) && item.Material.Contains(query, StringComparison.OrdinalIgnoreCase))
                     {
                         results.Add(item);
                     }
@@ -213,7 +251,7 @@ namespace NumismatGuide
 
                 if (!string.IsNullOrWhiteSpace(searchCountry))
                 {
-                    if (!item.Country.Contains(searchCountry))
+                    if (string.IsNullOrEmpty(item.Country) || item.Country.IndexOf(searchCountry, StringComparison.OrdinalIgnoreCase) < 0)
                     {
                         match = false;
                     }
@@ -221,7 +259,7 @@ namespace NumismatGuide
 
                 if (!string.IsNullOrWhiteSpace(searchMaterial))
                 {
-                    if (!item.Material.Contains(searchMaterial))
+                    if (string.IsNullOrEmpty(item.Material) || item.Material.IndexOf(searchMaterial, StringComparison.OrdinalIgnoreCase) < 0)
                     {
                         match = false;
                     }
@@ -250,20 +288,24 @@ namespace NumismatGuide
         {
             if (newCollector.LastName != null)
             {
-                newCollector.LastName = newCollector.LastName.Trim().ToLower();
+                newCollector.LastName = newCollector.LastName.Trim();
             }
             if (newCollector.FirstName != null)
             {
-                newCollector.FirstName = newCollector.FirstName.Trim().ToLower();
+                newCollector.FirstName = newCollector.FirstName.Trim();
             }
             if (newCollector.Country != null)
             {
-                newCollector.Country = newCollector.Country.Trim().ToLower();
+                newCollector.Country = newCollector.Country.Trim();
             }
 
-            if ((string.IsNullOrWhiteSpace(newCollector.LastName)) ||
-                (string.IsNullOrWhiteSpace(newCollector.FirstName)) ||
-                (string.IsNullOrWhiteSpace(newCollector.Country)) ||
+            string lastNameLower = newCollector.LastName?.ToLowerInvariant();
+            string firstNameLower = newCollector.FirstName?.ToLowerInvariant();
+            string countryLower = newCollector.Country?.ToLowerInvariant();
+
+            if ((string.IsNullOrWhiteSpace(lastNameLower)) ||
+                (string.IsNullOrWhiteSpace(firstNameLower)) ||
+                (string.IsNullOrWhiteSpace(countryLower)) ||
                 (string.IsNullOrWhiteSpace(newCollector.PhoneNumber)) ||
                 (string.IsNullOrWhiteSpace(newCollector.Email)))
             {
@@ -286,14 +328,14 @@ namespace NumismatGuide
                 }
             }
 
-            if (!allowedCountries.Contains(newCollector.Country))
+            if (!allowedCountries.Contains(countryLower))
             {
                 throw new Exception("Такої країни не існує. Введіть існуючу назву.");
             }
 
             foreach (char c in newCollector.PhoneNumber)
             {
-                if (!char.IsDigit(c))
+                if (!(char.IsDigit(c) || c == '+' || c == ' ' || c == '(' || c == ')' || c == '-'))
                 {
                     throw new Exception("Невірний формат зв'язку");
                 }
@@ -305,18 +347,26 @@ namespace NumismatGuide
             }
 
             if (!string.IsNullOrWhiteSpace(newCollector.RareCoinsInfo) &&
-                newCollector.RareCoinsInfo.All(char.IsDigit))
+                newCollector.RareCoinsInfo.Trim().All(char.IsDigit))
             {
                 throw new Exception("Поле 'Інформація про рідкісні монети' не може містити лише цифри.");
             }
 
             foreach (Collector item in Collectors)
             {
-                if ((item.LastName.Trim().ToLower() == newCollector.LastName) &&
-                    (item.FirstName.Trim().ToLower() == newCollector.FirstName))
+                if ((item.LastName.Trim().ToLower() == lastNameLower) &&
+                    (item.FirstName.Trim().ToLower() == firstNameLower))
                 {
                     throw new Exception("Такий контакт уже існує");
                 }
+            }
+
+            newCollector.LastName = ToTitleCase(newCollector.LastName);
+            newCollector.FirstName = ToTitleCase(newCollector.FirstName);
+            newCollector.Country = ToTitleCase(newCollector.Country);
+            if (!string.IsNullOrWhiteSpace(newCollector.RareCoinsInfo))
+            {
+                newCollector.RareCoinsInfo = ToTitleCase(newCollector.RareCoinsInfo);
             }
 
             Collectors.Add(newCollector);
@@ -377,21 +427,21 @@ namespace NumismatGuide
             {
                 if (criterion == "Прізвище")
                 {
-                    if (item.LastName.ToLower().Contains(query))
+                    if (!string.IsNullOrEmpty(item.LastName) && item.LastName.Contains(query, StringComparison.OrdinalIgnoreCase))
                     {
                         results.Add(item);
                     }
                 }
                 else if (criterion == "Ім'я")
                 {
-                    if (item.FirstName.ToLower().Contains(query))
+                    if (!string.IsNullOrEmpty(item.FirstName) && item.FirstName.Contains(query, StringComparison.OrdinalIgnoreCase))
                     {
                         results.Add(item);
                     }
                 }
                 else if (criterion == "Країна")
                 {
-                    if (item.Country.ToLower().Contains(query))
+                    if (!string.IsNullOrEmpty(item.Country) && item.Country.Contains(query, StringComparison.OrdinalIgnoreCase))
                     {
                         results.Add(item);
                     }
@@ -432,7 +482,7 @@ namespace NumismatGuide
 
                 if (!string.IsNullOrWhiteSpace(searchCountry))
                 {
-                    if (!item.Country.Contains(searchCountry))
+                    if (string.IsNullOrEmpty(item.Country) || !item.Country.Contains(searchCountry, StringComparison.OrdinalIgnoreCase))
                     {
                         match = false;
                     }
@@ -441,7 +491,7 @@ namespace NumismatGuide
                 if (!string.IsNullOrWhiteSpace(searchRare))
                 {
                     if (string.IsNullOrWhiteSpace(item.RareCoinsInfo) ||
-                        !item.RareCoinsInfo.Contains(searchRare))
+                        !item.RareCoinsInfo.Contains(searchRare, StringComparison.OrdinalIgnoreCase))
                     {
                         match = false;
                     }
