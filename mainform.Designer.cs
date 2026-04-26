@@ -44,6 +44,11 @@
             Phone = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             RareCoins = new DataGridViewTextBoxColumn();
+            groupBox1 = new GroupBox();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             tabControl1.SuspendLayout();
             CoinsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCoins).BeginInit();
@@ -56,10 +61,10 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(CoinsPage);
             tabControl1.Controls.Add(CollectorsPage);
-            tabControl1.Location = new Point(12, 12);
+            tabControl1.Location = new Point(12, 68);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1316, 853);
+            tabControl1.Size = new Size(1264, 699);
             tabControl1.TabIndex = 0;
             // 
             // CoinsPage
@@ -68,7 +73,7 @@
             CoinsPage.Location = new Point(4, 29);
             CoinsPage.Name = "CoinsPage";
             CoinsPage.Padding = new Padding(3);
-            CoinsPage.Size = new Size(1308, 820);
+            CoinsPage.Size = new Size(1256, 666);
             CoinsPage.TabIndex = 0;
             CoinsPage.Text = "Монети";
             CoinsPage.UseVisualStyleBackColor = true;
@@ -88,7 +93,7 @@
             dataGridViewCoins.ReadOnly = true;
             dataGridViewCoins.RowHeadersVisible = false;
             dataGridViewCoins.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCoins.Size = new Size(1302, 814);
+            dataGridViewCoins.Size = new Size(1250, 660);
             dataGridViewCoins.TabIndex = 0;
             // 
             // CountryCoins
@@ -127,7 +132,7 @@
             CollectorsPage.Location = new Point(4, 29);
             CollectorsPage.Name = "CollectorsPage";
             CollectorsPage.Padding = new Padding(3);
-            CollectorsPage.Size = new Size(1308, 820);
+            CollectorsPage.Size = new Size(1256, 666);
             CollectorsPage.TabIndex = 1;
             CollectorsPage.Text = "Колекціонери";
             CollectorsPage.UseVisualStyleBackColor = true;
@@ -147,7 +152,7 @@
             dataGridViewCollectors.ReadOnly = true;
             dataGridViewCollectors.RowHeadersVisible = false;
             dataGridViewCollectors.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCollectors.Size = new Size(1302, 814);
+            dataGridViewCollectors.Size = new Size(1250, 660);
             dataGridViewCollectors.TabIndex = 0;
             // 
             // Lastname
@@ -186,12 +191,63 @@
             RareCoins.Name = "RareCoins";
             RareCoins.ReadOnly = true;
             // 
+            // groupBox1
+            // 
+            groupBox1.Location = new Point(19, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(526, 50);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Пошук";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(805, 25);
+            button1.Name = "button1";
+            button1.Size = new Size(139, 37);
+            button1.TabIndex = 2;
+            button1.Text = "Додати";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(967, 25);
+            button2.Name = "button2";
+            button2.Size = new Size(137, 37);
+            button2.TabIndex = 3;
+            button2.Text = "Редагувати";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(1128, 25);
+            button3.Name = "button3";
+            button3.Size = new Size(129, 37);
+            button3.TabIndex = 4;
+            button3.Text = "Видалити";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(563, 22);
+            button4.Name = "button4";
+            button4.Size = new Size(100, 40);
+            button4.TabIndex = 5;
+            button4.Text = "Шукати";
+            button4.UseVisualStyleBackColor = true;
+            // 
             // mainform
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1340, 877);
+            ClientSize = new Size(1288, 779);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(groupBox1);
             Controls.Add(tabControl1);
+            Name = "mainform";
             Text = "Довідник нумізмата";
             tabControl1.ResumeLayout(false);
             CoinsPage.ResumeLayout(false);
@@ -219,5 +275,10 @@
         private DataGridViewTextBoxColumn Phone;
         private DataGridViewTextBoxColumn Email;
         private DataGridViewTextBoxColumn RareCoins;
+        private GroupBox groupBox1;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
     }
 }
