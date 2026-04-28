@@ -39,7 +39,7 @@
             textBoxCirculation = new TextBox();
             textBoxFeatures = new TextBox();
             buttonSave = new Button();
-            buttonEdit = new Button();
+            buttonCancel = new Button();
             SuspendLayout();
             // 
             // labelCountry
@@ -130,22 +130,24 @@
             buttonSave.TabIndex = 10;
             buttonSave.Text = "Зберегти";
             buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
             // 
-            // buttonEdit
+            // buttonCancel
             // 
-            buttonEdit.Location = new Point(186, 306);
-            buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(103, 40);
-            buttonEdit.TabIndex = 11;
-            buttonEdit.Text = "Скасувати";
-            buttonEdit.UseVisualStyleBackColor = true;
+            buttonCancel.Location = new Point(186, 306);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(103, 40);
+            buttonCancel.TabIndex = 11;
+            buttonCancel.Text = "Скасувати";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // formaddcoin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(463, 412);
-            Controls.Add(buttonEdit);
+            Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Controls.Add(textBoxFeatures);
             Controls.Add(textBoxCirculation);
@@ -176,6 +178,6 @@
         private TextBox textBoxCirculation;
         private TextBox textBoxFeatures;
         private Button buttonSave;
-        private Button buttonEdit;
+        private Button buttonCancel;
     }
 }

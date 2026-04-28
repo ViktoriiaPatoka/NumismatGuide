@@ -41,7 +41,7 @@
             textBoxRareCoin = new TextBox();
             labelRareCoin = new Label();
             buttonSave = new Button();
-            buttonExit = new Button();
+            buttonCancel = new Button();
             SuspendLayout();
             // 
             // labelLastName
@@ -149,22 +149,24 @@
             buttonSave.TabIndex = 12;
             buttonSave.Text = "Зберегти";
             buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
             // 
-            // buttonExit
+            // buttonCancel
             // 
-            buttonExit.Location = new Point(177, 485);
-            buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(111, 44);
-            buttonExit.TabIndex = 13;
-            buttonExit.Text = "Скасувати";
-            buttonExit.UseVisualStyleBackColor = true;
+            buttonCancel.Location = new Point(177, 485);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(111, 44);
+            buttonCancel.TabIndex = 13;
+            buttonCancel.Text = "Скасувати";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // formaddcollector
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(599, 597);
-            Controls.Add(buttonExit);
+            Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Controls.Add(labelRareCoin);
             Controls.Add(textBoxRareCoin);
@@ -199,6 +201,6 @@
         private TextBox textBoxRareCoin;
         private Label labelRareCoin;
         private Button buttonSave;
-        private Button buttonExit;
+        private Button buttonCancel;
     }
 }

@@ -28,44 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tabControl1 = new TabControl();
+            tabControl = new TabControl();
             CoinsPage = new TabPage();
             dataGridViewCoins = new DataGridView();
-            CountryCoins = new DataGridViewTextBoxColumn();
-            Year = new DataGridViewTextBoxColumn();
-            Material = new DataGridViewTextBoxColumn();
-            Circulation = new DataGridViewTextBoxColumn();
-            Features = new DataGridViewTextBoxColumn();
             CollectorsPage = new TabPage();
             dataGridViewCollectors = new DataGridView();
-            Lastname = new DataGridViewTextBoxColumn();
-            Name = new DataGridViewTextBoxColumn();
+            groupBoxSearch = new GroupBox();
+            buttonAdd = new Button();
+            buttonEdit = new Button();
+            buttonDelete = new Button();
+            buttonSearch = new Button();
+            CountryCoins = new DataGridViewTextBoxColumn();
+            YearCoins = new DataGridViewTextBoxColumn();
+            MaterialCoins = new DataGridViewTextBoxColumn();
+            CirculationCoins = new DataGridViewTextBoxColumn();
+            FeaturesCoins = new DataGridViewTextBoxColumn();
+            LastNameCollectors = new DataGridViewTextBoxColumn();
+            NameCollectors = new DataGridViewTextBoxColumn();
             CountryCollectors = new DataGridViewTextBoxColumn();
-            Phone = new DataGridViewTextBoxColumn();
-            Email = new DataGridViewTextBoxColumn();
+            PhoneCollectors = new DataGridViewTextBoxColumn();
+            EmailCollectors = new DataGridViewTextBoxColumn();
             RareCoins = new DataGridViewTextBoxColumn();
-            groupBox1 = new GroupBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            tabControl1.SuspendLayout();
+            tabControl.SuspendLayout();
             CoinsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCoins).BeginInit();
             CollectorsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCollectors).BeginInit();
             SuspendLayout();
             // 
-            // tabControl1
+            // tabControl
             // 
-            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tabControl1.Controls.Add(CoinsPage);
-            tabControl1.Controls.Add(CollectorsPage);
-            tabControl1.Location = new Point(12, 68);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1264, 699);
-            tabControl1.TabIndex = 0;
+            tabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl.Controls.Add(CoinsPage);
+            tabControl.Controls.Add(CollectorsPage);
+            tabControl.Location = new Point(12, 68);
+            tabControl.Name = "tabControl";
+            tabControl.SelectedIndex = 0;
+            tabControl.Size = new Size(1264, 699);
+            tabControl.TabIndex = 0;
             // 
             // CoinsPage
             // 
@@ -85,7 +85,7 @@
             dataGridViewCoins.AllowUserToResizeColumns = false;
             dataGridViewCoins.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCoins.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCoins.Columns.AddRange(new DataGridViewColumn[] { CountryCoins, Year, Material, Circulation, Features });
+            dataGridViewCoins.Columns.AddRange(new DataGridViewColumn[] { CountryCoins, YearCoins, MaterialCoins, CirculationCoins, FeaturesCoins });
             dataGridViewCoins.Dock = DockStyle.Fill;
             dataGridViewCoins.Location = new Point(3, 3);
             dataGridViewCoins.MultiSelect = false;
@@ -95,36 +95,6 @@
             dataGridViewCoins.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewCoins.Size = new Size(1250, 660);
             dataGridViewCoins.TabIndex = 0;
-            // 
-            // CountryCoins
-            // 
-            CountryCoins.HeaderText = "Країна";
-            CountryCoins.Name = "CountryCoins";
-            CountryCoins.ReadOnly = true;
-            // 
-            // Year
-            // 
-            Year.HeaderText = "Рік";
-            Year.Name = "Year";
-            Year.ReadOnly = true;
-            // 
-            // Material
-            // 
-            Material.HeaderText = "Матеріал";
-            Material.Name = "Material";
-            Material.ReadOnly = true;
-            // 
-            // Circulation
-            // 
-            Circulation.HeaderText = "Тираж";
-            Circulation.Name = "Circulation";
-            Circulation.ReadOnly = true;
-            // 
-            // Features
-            // 
-            Features.HeaderText = "Особливості";
-            Features.Name = "Features";
-            Features.ReadOnly = true;
             // 
             // CollectorsPage
             // 
@@ -144,7 +114,7 @@
             dataGridViewCollectors.AllowUserToResizeColumns = false;
             dataGridViewCollectors.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCollectors.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCollectors.Columns.AddRange(new DataGridViewColumn[] { Lastname, Name, CountryCollectors, Phone, Email, RareCoins });
+            dataGridViewCollectors.Columns.AddRange(new DataGridViewColumn[] { LastNameCollectors, NameCollectors, CountryCollectors, PhoneCollectors, EmailCollectors, RareCoins });
             dataGridViewCollectors.Dock = DockStyle.Fill;
             dataGridViewCollectors.Location = new Point(3, 3);
             dataGridViewCollectors.MultiSelect = false;
@@ -155,101 +125,145 @@
             dataGridViewCollectors.Size = new Size(1250, 660);
             dataGridViewCollectors.TabIndex = 0;
             // 
-            // Lastname
+            // groupBoxSearch
             // 
-            Lastname.HeaderText = "Прізвище";
-            Lastname.Name = "Lastname";
-            Lastname.ReadOnly = true;
+            groupBoxSearch.Location = new Point(19, 12);
+            groupBoxSearch.Name = "groupBoxSearch";
+            groupBoxSearch.Size = new Size(526, 50);
+            groupBoxSearch.TabIndex = 1;
+            groupBoxSearch.TabStop = false;
+            groupBoxSearch.Text = "Пошук";
             // 
-            // Name
+            // buttonAdd
             // 
-            Name.HeaderText = "Ім’я";
-            Name.Name = "Name";
-            Name.ReadOnly = true;
+            buttonAdd.Location = new Point(805, 25);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(139, 37);
+            buttonAdd.TabIndex = 2;
+            buttonAdd.Text = "Додати";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
+            // 
+            // buttonEdit
+            // 
+            buttonEdit.Location = new Point(967, 25);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new Size(137, 37);
+            buttonEdit.TabIndex = 3;
+            buttonEdit.Text = "Редагувати";
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
+            // 
+            // buttonDelete
+            // 
+            buttonDelete.Location = new Point(1128, 25);
+            buttonDelete.Name = "buttonDelete";
+            buttonDelete.Size = new Size(129, 37);
+            buttonDelete.TabIndex = 4;
+            buttonDelete.Text = "Видалити";
+            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
+            // 
+            // buttonSearch
+            // 
+            buttonSearch.Location = new Point(563, 22);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(100, 40);
+            buttonSearch.TabIndex = 5;
+            buttonSearch.Text = "Шукати";
+            buttonSearch.UseVisualStyleBackColor = true;
+            // 
+            // CountryCoins
+            // 
+            CountryCoins.DataPropertyName = "Country";
+            CountryCoins.HeaderText = "Країна";
+            CountryCoins.Name = "CountryCoins";
+            CountryCoins.ReadOnly = true;
+            // 
+            // YearCoins
+            // 
+            YearCoins.DataPropertyName = "Year";
+            YearCoins.HeaderText = "Рік";
+            YearCoins.Name = "YearCoins";
+            YearCoins.ReadOnly = true;
+            // 
+            // MaterialCoins
+            // 
+            MaterialCoins.DataPropertyName = "Material";
+            MaterialCoins.HeaderText = "Матеріал";
+            MaterialCoins.Name = "MaterialCoins";
+            MaterialCoins.ReadOnly = true;
+            // 
+            // CirculationCoins
+            // 
+            CirculationCoins.DataPropertyName = "Circulation";
+            CirculationCoins.HeaderText = "Тираж";
+            CirculationCoins.Name = "CirculationCoins";
+            CirculationCoins.ReadOnly = true;
+            // 
+            // FeaturesCoins
+            // 
+            FeaturesCoins.DataPropertyName = "Features";
+            FeaturesCoins.HeaderText = "Особливості";
+            FeaturesCoins.Name = "FeaturesCoins";
+            FeaturesCoins.ReadOnly = true;
+            // 
+            // LastNameCollectors
+            // 
+            LastNameCollectors.DataPropertyName = "LastName";
+            LastNameCollectors.HeaderText = "Прізвище";
+            LastNameCollectors.Name = "LastNameCollectors";
+            LastNameCollectors.ReadOnly = true;
+            // 
+            // NameCollectors
+            // 
+            NameCollectors.DataPropertyName = "FirstName";
+            NameCollectors.HeaderText = "Ім’я";
+            NameCollectors.Name = "NameCollectors";
+            NameCollectors.ReadOnly = true;
             // 
             // CountryCollectors
             // 
+            CountryCollectors.DataPropertyName = "Country";
             CountryCollectors.HeaderText = "Країна";
             CountryCollectors.Name = "CountryCollectors";
             CountryCollectors.ReadOnly = true;
             // 
-            // Phone
+            // PhoneCollectors
             // 
-            Phone.HeaderText = "Телефон";
-            Phone.Name = "Phone";
-            Phone.ReadOnly = true;
+            PhoneCollectors.DataPropertyName = "PhoneNumber";
+            PhoneCollectors.HeaderText = "Телефон";
+            PhoneCollectors.Name = "PhoneCollectors";
+            PhoneCollectors.ReadOnly = true;
             // 
-            // Email
+            // EmailCollectors
             // 
-            Email.HeaderText = "Пошта";
-            Email.Name = "Email";
-            Email.ReadOnly = true;
+            EmailCollectors.DataPropertyName = "Email";
+            EmailCollectors.HeaderText = "Пошта";
+            EmailCollectors.Name = "EmailCollectors";
+            EmailCollectors.ReadOnly = true;
             // 
             // RareCoins
             // 
+            RareCoins.DataPropertyName = "RareCoinsInfo";
             RareCoins.HeaderText = "Рідкісні монети";
             RareCoins.Name = "RareCoins";
             RareCoins.ReadOnly = true;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Location = new Point(19, 12);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(526, 50);
-            groupBox1.TabIndex = 1;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Пошук";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(805, 25);
-            button1.Name = "button1";
-            button1.Size = new Size(139, 37);
-            button1.TabIndex = 2;
-            button1.Text = "Додати";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(967, 25);
-            button2.Name = "button2";
-            button2.Size = new Size(137, 37);
-            button2.TabIndex = 3;
-            button2.Text = "Редагувати";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(1128, 25);
-            button3.Name = "button3";
-            button3.Size = new Size(129, 37);
-            button3.TabIndex = 4;
-            button3.Text = "Видалити";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(563, 22);
-            button4.Name = "button4";
-            button4.Size = new Size(100, 40);
-            button4.TabIndex = 5;
-            button4.Text = "Шукати";
-            button4.UseVisualStyleBackColor = true;
             // 
             // mainform
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1288, 779);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(groupBox1);
-            Controls.Add(tabControl1);
-            Name = "mainform";
+            Controls.Add(buttonSearch);
+            Controls.Add(buttonDelete);
+            Controls.Add(buttonEdit);
+            Controls.Add(buttonAdd);
+            Controls.Add(groupBoxSearch);
+            Controls.Add(tabControl);
             Text = "Довідник нумізмата";
-            tabControl1.ResumeLayout(false);
+            Load += mainform_Load;
+            tabControl.ResumeLayout(false);
             CoinsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridViewCoins).EndInit();
             CollectorsPage.ResumeLayout(false);
@@ -259,26 +273,26 @@
 
         #endregion
 
-        private TabControl tabControl1;
+        private TabControl tabControl;
         private TabPage CoinsPage;
         private TabPage CollectorsPage;
         private DataGridView dataGridViewCoins;
-        private DataGridViewTextBoxColumn CountryCoins;
-        private DataGridViewTextBoxColumn Year;
-        private DataGridViewTextBoxColumn Material;
-        private DataGridViewTextBoxColumn Circulation;
-        private DataGridViewTextBoxColumn Features;
         private DataGridView dataGridViewCollectors;
-        private DataGridViewTextBoxColumn Lastname;
-        private DataGridViewTextBoxColumn Name;
+        private GroupBox groupBoxSearch;
+        private Button buttonAdd;
+        private Button buttonEdit;
+        private Button buttonDelete;
+        private Button buttonSearch;
+        private DataGridViewTextBoxColumn CountryCoins;
+        private DataGridViewTextBoxColumn YearCoins;
+        private DataGridViewTextBoxColumn MaterialCoins;
+        private DataGridViewTextBoxColumn CirculationCoins;
+        private DataGridViewTextBoxColumn FeaturesCoins;
+        private DataGridViewTextBoxColumn LastNameCollectors;
+        private DataGridViewTextBoxColumn NameCollectors;
         private DataGridViewTextBoxColumn CountryCollectors;
-        private DataGridViewTextBoxColumn Phone;
-        private DataGridViewTextBoxColumn Email;
+        private DataGridViewTextBoxColumn PhoneCollectors;
+        private DataGridViewTextBoxColumn EmailCollectors;
         private DataGridViewTextBoxColumn RareCoins;
-        private GroupBox groupBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
     }
 }

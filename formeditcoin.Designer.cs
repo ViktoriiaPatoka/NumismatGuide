@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonExit = new Button();
+            buttonCancel = new Button();
             buttonSave = new Button();
             textBoxFeatures = new TextBox();
             textBoxCirculation = new TextBox();
@@ -42,14 +42,15 @@
             labelCountry = new Label();
             SuspendLayout();
             // 
-            // buttonExit
+            // buttonCancel
             // 
-            buttonExit.Location = new Point(181, 305);
-            buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(103, 40);
-            buttonExit.TabIndex = 23;
-            buttonExit.Text = "Скасувати";
-            buttonExit.UseVisualStyleBackColor = true;
+            buttonCancel.Location = new Point(181, 305);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(103, 40);
+            buttonCancel.TabIndex = 23;
+            buttonCancel.Text = "Скасувати";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // buttonSave
             // 
@@ -59,6 +60,7 @@
             buttonSave.TabIndex = 22;
             buttonSave.Text = "Зберегти";
             buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += buttonSave_Click;
             // 
             // textBoxFeatures
             // 
@@ -145,7 +147,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(543, 402);
-            Controls.Add(buttonExit);
+            Controls.Add(buttonCancel);
             Controls.Add(buttonSave);
             Controls.Add(textBoxFeatures);
             Controls.Add(textBoxCirculation);
@@ -165,7 +167,7 @@
 
         #endregion
 
-        private Button buttonExit;
+        private Button buttonCancel;
         private Button buttonSave;
         private TextBox textBoxFeatures;
         private TextBox textBoxCirculation;
