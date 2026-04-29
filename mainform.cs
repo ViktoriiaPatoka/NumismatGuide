@@ -14,7 +14,7 @@ namespace NumismatGuide
         {
             dataGridViewCoins.AutoGenerateColumns = false;
             dataGridViewCollectors.AutoGenerateColumns = false;
-            dataGridViewCoins.DataSource = manager.Coins; 
+            dataGridViewCoins.DataSource = manager.Coins;
             dataGridViewCollectors.DataSource = manager.Collectors;
 
             tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
@@ -79,13 +79,20 @@ namespace NumismatGuide
         {
             if (activeTable == "coins")
             {
-                if (dataGridViewCoins.SelectedRows.Count == 0)
+                if (dataGridViewCoins.CurrentRow == null)
                 {
                     MessageBox.Show("Оберіть монету");
                     return;
                 }
 
-                Coin selectedCoin = (Coin)dataGridViewCoins.SelectedRows[0].DataBoundItem;
+                Coin selectedCoin = dataGridViewCoins.CurrentRow.DataBoundItem as Coin;
+
+                if (selectedCoin == null)
+                {
+                    MessageBox.Show("Помилка вибору монети");
+                    return;
+                }
+
                 int index = manager.Coins.IndexOf(selectedCoin);
 
                 formeditcoin form = new formeditcoin(selectedCoin);
@@ -105,13 +112,20 @@ namespace NumismatGuide
             }
             else if (activeTable == "collectors")
             {
-                if (dataGridViewCollectors.SelectedRows.Count == 0)
+                if (dataGridViewCollectors.CurrentRow == null)
                 {
                     MessageBox.Show("Оберіть колекціонера");
                     return;
                 }
 
-                Collector selectedCollector = (Collector)dataGridViewCollectors.SelectedRows[0].DataBoundItem;
+                Collector selectedCollector = dataGridViewCollectors.CurrentRow.DataBoundItem as Collector;
+
+                if (selectedCollector == null)
+                {
+                    MessageBox.Show("Помилка вибору колекціонера");
+                    return;
+                }
+
                 int index = manager.Collectors.IndexOf(selectedCollector);
 
                 formeditcollector form = new formeditcollector(selectedCollector);
@@ -142,10 +156,39 @@ namespace NumismatGuide
                 }
 
                 Coin selectedCoin = (Coin)dataGridViewCoins.CurrentRow.DataBoundItem;
+
+                if (selectedCoin == null)
+                {
+                    MessageBox.Show("Помилка при виборі монети. Спробуйте ще раз.");
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    "Ви точно хочете видалити цю монету?",
+                    "Підтвердження видалення",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+
                 int index = manager.Coins.IndexOf(selectedCoin);
 
-                manager.RemoveCoin(index);
-                RefreshCoins();
+                if (index < 0)
+                {
+                    MessageBox.Show("Монету не знайдено в колекції.");
+                    return;
+                }
+
+                try
+                {
+                    manager.RemoveCoin(index);
+                    RefreshCoins();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else if (activeTable == "collectors")
             {
@@ -156,10 +199,39 @@ namespace NumismatGuide
                 }
 
                 Collector selectedCollector = (Collector)dataGridViewCollectors.CurrentRow.DataBoundItem;
+
+                if (selectedCollector == null)
+                {
+                    MessageBox.Show("Помилка при виборі колекціонера. Спробуйте ще раз.");
+                    return;
+                }
+
+                var result = MessageBox.Show(
+                    "Ви точно хочете видалити цього колекціонера?",
+                    "Підтвердження видалення",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+
                 int index = manager.Collectors.IndexOf(selectedCollector);
 
-                manager.RemoveCollector(index);
-                RefreshCollectors();
+                if (index < 0)
+                {
+                    MessageBox.Show("Колекціонера не знайдено в списку.");
+                    return;
+                }
+
+                try
+                {
+                    manager.RemoveCollector(index);
+                    RefreshCollectors();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }

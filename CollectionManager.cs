@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,8 @@ namespace NumismatGuide
             return uk.TextInfo.ToTitleCase(input);
         }
 
-        public List<Coin> Coins { get; set; } = new List<Coin>();
-        public List<Collector> Collectors { get; set; } = new List<Collector>();
+        public BindingList<Coin> Coins { get; set; } = new BindingList<Coin>();
+        public BindingList<Collector> Collectors { get; set; } = new BindingList<Collector>();
 
         private readonly List<string> allowedCountries = new List<string>
         {

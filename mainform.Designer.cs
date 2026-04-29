@@ -31,24 +31,24 @@
             tabControl = new TabControl();
             CoinsPage = new TabPage();
             dataGridViewCoins = new DataGridView();
-            CollectorsPage = new TabPage();
-            dataGridViewCollectors = new DataGridView();
-            groupBoxSearch = new GroupBox();
-            buttonAdd = new Button();
-            buttonEdit = new Button();
-            buttonDelete = new Button();
-            buttonSearch = new Button();
             CountryCoins = new DataGridViewTextBoxColumn();
             YearCoins = new DataGridViewTextBoxColumn();
             MaterialCoins = new DataGridViewTextBoxColumn();
             CirculationCoins = new DataGridViewTextBoxColumn();
             FeaturesCoins = new DataGridViewTextBoxColumn();
+            CollectorsPage = new TabPage();
+            dataGridViewCollectors = new DataGridView();
             LastNameCollectors = new DataGridViewTextBoxColumn();
             NameCollectors = new DataGridViewTextBoxColumn();
             CountryCollectors = new DataGridViewTextBoxColumn();
             PhoneCollectors = new DataGridViewTextBoxColumn();
             EmailCollectors = new DataGridViewTextBoxColumn();
             RareCoins = new DataGridViewTextBoxColumn();
+            groupBoxSearch = new GroupBox();
+            buttonAdd = new Button();
+            buttonEdit = new Button();
+            buttonDelete = new Button();
+            buttonSearch = new Button();
             tabControl.SuspendLayout();
             CoinsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCoins).BeginInit();
@@ -96,6 +96,41 @@
             dataGridViewCoins.Size = new Size(1250, 660);
             dataGridViewCoins.TabIndex = 0;
             // 
+            // CountryCoins
+            // 
+            CountryCoins.DataPropertyName = "Country";
+            CountryCoins.HeaderText = "Країна";
+            CountryCoins.Name = "CountryCoins";
+            CountryCoins.ReadOnly = true;
+            // 
+            // YearCoins
+            // 
+            YearCoins.DataPropertyName = "Year";
+            YearCoins.HeaderText = "Рік";
+            YearCoins.Name = "YearCoins";
+            YearCoins.ReadOnly = true;
+            // 
+            // MaterialCoins
+            // 
+            MaterialCoins.DataPropertyName = "Material";
+            MaterialCoins.HeaderText = "Матеріал";
+            MaterialCoins.Name = "MaterialCoins";
+            MaterialCoins.ReadOnly = true;
+            // 
+            // CirculationCoins
+            // 
+            CirculationCoins.DataPropertyName = "Circulation";
+            CirculationCoins.HeaderText = "Тираж";
+            CirculationCoins.Name = "CirculationCoins";
+            CirculationCoins.ReadOnly = true;
+            // 
+            // FeaturesCoins
+            // 
+            FeaturesCoins.DataPropertyName = "Features";
+            FeaturesCoins.HeaderText = "Особливості";
+            FeaturesCoins.Name = "FeaturesCoins";
+            FeaturesCoins.ReadOnly = true;
+            // 
             // CollectorsPage
             // 
             CollectorsPage.Controls.Add(dataGridViewCollectors);
@@ -124,6 +159,48 @@
             dataGridViewCollectors.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewCollectors.Size = new Size(1250, 660);
             dataGridViewCollectors.TabIndex = 0;
+            // 
+            // LastNameCollectors
+            // 
+            LastNameCollectors.DataPropertyName = "LastName";
+            LastNameCollectors.HeaderText = "Прізвище";
+            LastNameCollectors.Name = "LastNameCollectors";
+            LastNameCollectors.ReadOnly = true;
+            // 
+            // NameCollectors
+            // 
+            NameCollectors.DataPropertyName = "FirstName";
+            NameCollectors.HeaderText = "Ім’я";
+            NameCollectors.Name = "NameCollectors";
+            NameCollectors.ReadOnly = true;
+            // 
+            // CountryCollectors
+            // 
+            CountryCollectors.DataPropertyName = "Country";
+            CountryCollectors.HeaderText = "Країна";
+            CountryCollectors.Name = "CountryCollectors";
+            CountryCollectors.ReadOnly = true;
+            // 
+            // PhoneCollectors
+            // 
+            PhoneCollectors.DataPropertyName = "PhoneNumber";
+            PhoneCollectors.HeaderText = "Телефон";
+            PhoneCollectors.Name = "PhoneCollectors";
+            PhoneCollectors.ReadOnly = true;
+            // 
+            // EmailCollectors
+            // 
+            EmailCollectors.DataPropertyName = "Email";
+            EmailCollectors.HeaderText = "Пошта";
+            EmailCollectors.Name = "EmailCollectors";
+            EmailCollectors.ReadOnly = true;
+            // 
+            // RareCoins
+            // 
+            RareCoins.DataPropertyName = "RareCoinsInfo";
+            RareCoins.HeaderText = "Рідкісні монети";
+            RareCoins.Name = "RareCoins";
+            RareCoins.ReadOnly = true;
             // 
             // groupBoxSearch
             // 
@@ -173,83 +250,6 @@
             buttonSearch.Text = "Шукати";
             buttonSearch.UseVisualStyleBackColor = true;
             // 
-            // CountryCoins
-            // 
-            CountryCoins.DataPropertyName = "Country";
-            CountryCoins.HeaderText = "Країна";
-            CountryCoins.Name = "CountryCoins";
-            CountryCoins.ReadOnly = true;
-            // 
-            // YearCoins
-            // 
-            YearCoins.DataPropertyName = "Year";
-            YearCoins.HeaderText = "Рік";
-            YearCoins.Name = "YearCoins";
-            YearCoins.ReadOnly = true;
-            // 
-            // MaterialCoins
-            // 
-            MaterialCoins.DataPropertyName = "Material";
-            MaterialCoins.HeaderText = "Матеріал";
-            MaterialCoins.Name = "MaterialCoins";
-            MaterialCoins.ReadOnly = true;
-            // 
-            // CirculationCoins
-            // 
-            CirculationCoins.DataPropertyName = "Circulation";
-            CirculationCoins.HeaderText = "Тираж";
-            CirculationCoins.Name = "CirculationCoins";
-            CirculationCoins.ReadOnly = true;
-            // 
-            // FeaturesCoins
-            // 
-            FeaturesCoins.DataPropertyName = "Features";
-            FeaturesCoins.HeaderText = "Особливості";
-            FeaturesCoins.Name = "FeaturesCoins";
-            FeaturesCoins.ReadOnly = true;
-            // 
-            // LastNameCollectors
-            // 
-            LastNameCollectors.DataPropertyName = "LastName";
-            LastNameCollectors.HeaderText = "Прізвище";
-            LastNameCollectors.Name = "LastNameCollectors";
-            LastNameCollectors.ReadOnly = true;
-            // 
-            // NameCollectors
-            // 
-            NameCollectors.DataPropertyName = "FirstName";
-            NameCollectors.HeaderText = "Ім’я";
-            NameCollectors.Name = "NameCollectors";
-            NameCollectors.ReadOnly = true;
-            // 
-            // CountryCollectors
-            // 
-            CountryCollectors.DataPropertyName = "Country";
-            CountryCollectors.HeaderText = "Країна";
-            CountryCollectors.Name = "CountryCollectors";
-            CountryCollectors.ReadOnly = true;
-            // 
-            // PhoneCollectors
-            // 
-            PhoneCollectors.DataPropertyName = "PhoneNumber";
-            PhoneCollectors.HeaderText = "Телефон";
-            PhoneCollectors.Name = "PhoneCollectors";
-            PhoneCollectors.ReadOnly = true;
-            // 
-            // EmailCollectors
-            // 
-            EmailCollectors.DataPropertyName = "Email";
-            EmailCollectors.HeaderText = "Пошта";
-            EmailCollectors.Name = "EmailCollectors";
-            EmailCollectors.ReadOnly = true;
-            // 
-            // RareCoins
-            // 
-            RareCoins.DataPropertyName = "RareCoinsInfo";
-            RareCoins.HeaderText = "Рідкісні монети";
-            RareCoins.Name = "RareCoins";
-            RareCoins.ReadOnly = true;
-            // 
             // mainform
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -261,6 +261,7 @@
             Controls.Add(buttonAdd);
             Controls.Add(groupBoxSearch);
             Controls.Add(tabControl);
+            Name = "mainform";
             Text = "Довідник нумізмата";
             Load += mainform_Load;
             tabControl.ResumeLayout(false);
