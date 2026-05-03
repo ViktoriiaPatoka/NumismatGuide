@@ -18,6 +18,8 @@ namespace NumismatGuide
             dataGridViewCollectors.DataSource = manager.Collectors;
 
             tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+
+            UpdateCriteria();
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -30,6 +32,8 @@ namespace NumismatGuide
             {
                 activeTable = "collectors";
             }
+
+            UpdateCriteria();
         }
 
         private void RefreshCoins()
@@ -42,6 +46,27 @@ namespace NumismatGuide
         {
             dataGridViewCollectors.DataSource = null;
             dataGridViewCollectors.DataSource = manager.Collectors;
+        }
+
+        private void UpdateCriteria()
+        {
+            comboBoxCriterion.Items.Clear();
+            comboBoxCriterion.SelectedIndex = -1;
+            comboBoxCriterion.Text = "";
+
+            if (activeTable == "coins")
+            {
+                comboBoxCriterion.Items.Add("Країна");
+                comboBoxCriterion.Items.Add("Матеріал");
+                comboBoxCriterion.Items.Add("Рік");
+            }
+            else if (activeTable == "collectors")
+            {
+                comboBoxCriterion.Items.Add("Прізвище");
+                comboBoxCriterion.Items.Add("Ім'я");
+                comboBoxCriterion.Items.Add("Країна");
+                comboBoxCriterion.Items.Add("Телефон");
+            }
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
@@ -93,15 +118,13 @@ namespace NumismatGuide
                     return;
                 }
 
-                int index = manager.Coins.IndexOf(selectedCoin);
-
                 formeditcoin form = new formeditcoin(selectedCoin);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        manager.UpdateCoin(index, form.UpdatedCoin);
+                        manager.UpdateCoin(selectedCoin, form.UpdatedCoin);
                         RefreshCoins();
                     }
                     catch (Exception ex)
@@ -126,15 +149,13 @@ namespace NumismatGuide
                     return;
                 }
 
-                int index = manager.Collectors.IndexOf(selectedCollector);
-
                 formeditcollector form = new formeditcollector(selectedCollector);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        manager.UpdateCollector(index, form.UpdatedCollector);
+                        manager.UpdateCollector(selectedCollector, form.UpdatedCollector);
                         RefreshCollectors();
                     }
                     catch (Exception ex)
@@ -170,19 +191,13 @@ namespace NumismatGuide
                     MessageBoxIcon.Question);
 
                 if (result != DialogResult.Yes)
-                    return;
-
-                int index = manager.Coins.IndexOf(selectedCoin);
-
-                if (index < 0)
                 {
-                    MessageBox.Show("Монету не знайдено в колекції.");
                     return;
                 }
 
                 try
                 {
-                    manager.RemoveCoin(index);
+                    manager.Coins.Remove(selectedCoin);
                     RefreshCoins();
                 }
                 catch (Exception ex)
@@ -215,18 +230,92 @@ namespace NumismatGuide
                 if (result != DialogResult.Yes)
                     return;
 
-                int index = manager.Collectors.IndexOf(selectedCollector);
-
-                if (index < 0)
+                try
                 {
-                    MessageBox.Show("Колекціонера не знайдено в списку.");
+                    manager.Collectors.Remove(selectedCollector);
+                    RefreshCollectors();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void buttonUse_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var filtered = manager.FilterCoins(
+                    textBoxCountry.Text,
+                    textBoxMaterial.Text,
+                    textBoxYearFrom.Text,
+                    textBoxYearTo.Text
+                );
+
+                dataGridViewCoins.DataSource = null;
+                dataGridViewCoins.DataSource = filtered;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            textBoxCountry.Text = "";
+            textBoxMaterial.Text = "";
+            textBoxYearFrom.Text = "";
+            textBoxYearTo.Text = "";
+
+            dataGridViewCoins.DataSource = null;
+            dataGridViewCoins.DataSource = manager.Coins;
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            if (activeTable == "coins")
+            {
+                string criterion = comboBoxCriterion.SelectedItem?.ToString();
+                string query = textBoxSearch.Text;
+
+                if (string.IsNullOrEmpty(criterion))
+                {
+                    MessageBox.Show("Оберіть критерій пошуку");
                     return;
                 }
 
                 try
                 {
-                    manager.RemoveCollector(index);
-                    RefreshCollectors();
+                    List<Coin> results = manager.SearchCoins(criterion, query);
+
+                    dataGridViewCoins.DataSource = null;
+                    dataGridViewCoins.DataSource = results;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            else if (activeTable == "collectors")
+            {
+                string criterion = comboBoxCriterion.SelectedItem?.ToString();
+                string query = textBoxSearch.Text;
+
+                if (string.IsNullOrEmpty(criterion))
+                {
+                    MessageBox.Show("Оберіть критерій пошуку");
+                    return;
+                }
+
+                try
+                {
+                    List<Collector> results = manager.SearchCollectors(criterion, query);
+
+                    dataGridViewCollectors.DataSource = null;
+                    dataGridViewCollectors.DataSource = results;
                 }
                 catch (Exception ex)
                 {

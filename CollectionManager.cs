@@ -283,38 +283,32 @@ namespace NumismatGuide
             Coins.Add(newCoin);
         }
 
-        public void UpdateCoin(int index, Coin updatedCoin)
+        public void UpdateCoin(Coin oldCoin, Coin updatedCoin)
         {
-            if (index < 0 || index >= Coins.Count)
+            int index = Coins.IndexOf(oldCoin);
+
+            if (index < 0)
             {
                 throw new Exception("Монету не знайдено.");
             }
 
-            Coin oldCoin = Coins[index];
+            Coin backup = Coins[index];
 
             Coins.RemoveAt(index);
 
             try
             {
-                AddCoin(updatedCoin);
-                Coins.RemoveAt(Coins.Count - 1);
-                Coins.Insert(index, updatedCoin);
+                AddCoin(updatedCoin);              
+                Coins.RemoveAt(Coins.Count - 1);  
+                Coins.Insert(index, updatedCoin); 
             }
             catch
             {
-                Coins.Insert(index, oldCoin);
+                Coins.Insert(index, backup);       
                 throw;
             }
         }
 
-        public void RemoveCoin(int index)
-        {
-            if (index < 0 || index >= Coins.Count)
-            {
-                throw new Exception("Монету не знайдено, або вона вже була видалена.");
-            }
-            Coins.RemoveAt(index);
-        }
 
         public List<Coin> SearchCoins(string criterion, string query)
         {
@@ -543,14 +537,17 @@ namespace NumismatGuide
             Collectors.Add(newCollector);
         }
 
-        public void UpdateCollector(int index, Collector updatedCollector)
+        public void UpdateCollector(Collector oldCollector, Collector updatedCollector)
         {
-            if (index < 0 || index >= Collectors.Count)
+            int index = Collectors.IndexOf(oldCollector);
+
+            if (index < 0)
             {
                 throw new Exception("Колекціонера не знайдено.");
             }
 
-            Collector oldCollector = Collectors[index];
+            Collector backup = Collectors[index];
+
             Collectors.RemoveAt(index);
 
             try
@@ -561,19 +558,9 @@ namespace NumismatGuide
             }
             catch
             {
-                Collectors.Insert(index, oldCollector);
+                Collectors.Insert(index, backup);
                 throw;
             }
-        }
-
-        public void RemoveCollector(int index)
-        {
-            if (index < 0 || index >= Collectors.Count)
-            {
-                throw new Exception("Колекціонера не знайдено.");
-            }
-
-            Collectors.RemoveAt(index);
         }
 
         public List<Collector> SearchCollectors(string criterion, string query)
