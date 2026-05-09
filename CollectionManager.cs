@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace NumismatGuide
@@ -667,6 +668,30 @@ namespace NumismatGuide
             }
 
             return results;
+        }
+
+        public void SaveData()
+        {
+            string coinsJson = JsonSerializer.Serialize(Coins);
+            File.WriteAllText("coins.json", coinsJson);
+
+            string collectorsJson = JsonSerializer.Serialize(Collectors);
+            File.WriteAllText("collectors.json", collectorsJson);
+        }
+
+        public void LoadData()
+        {
+            if (File.Exists("coins.json"))
+            {
+                string coinsJson = File.ReadAllText("coins.json");
+                Coins = JsonSerializer.Deserialize<BindingList<Coin>>(coinsJson);
+            }
+
+            if (File.Exists("collectors.json"))
+            {
+                string collectorsJson = File.ReadAllText("collectors.json");
+                Collectors = JsonSerializer.Deserialize<BindingList<Collector>>(collectorsJson);
+            }
         }
     }
 }

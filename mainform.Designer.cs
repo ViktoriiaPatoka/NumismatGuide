@@ -49,12 +49,12 @@
             buttonDelete = new Button();
             buttonSearch = new Button();
             labelFilter = new Label();
-            labelCountry = new Label();
+            labelCountryCoin = new Label();
             labelMaterial = new Label();
             labelYearFrom = new Label();
             labelYearTo = new Label();
             labelRareCoins = new Label();
-            textBoxCountry = new TextBox();
+            textBoxCountryCoin = new TextBox();
             textBoxMaterial = new TextBox();
             textBoxYearFrom = new TextBox();
             textBoxYearTo = new TextBox();
@@ -64,6 +64,11 @@
             comboBoxCriterion = new ComboBox();
             labelSearch = new Label();
             textBoxSearch = new TextBox();
+            buttonBack = new Button();
+            textBoxCountryCollector = new TextBox();
+            labelCountryCollector = new Label();
+            labelForCollectors = new Label();
+            labelForCoins = new Label();
             tabControl.SuspendLayout();
             CoinsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCoins).BeginInit();
@@ -249,7 +254,7 @@
             // 
             // buttonSearch
             // 
-            buttonSearch.Location = new Point(563, 22);
+            buttonSearch.Location = new Point(405, 25);
             buttonSearch.Name = "buttonSearch";
             buttonSearch.Size = new Size(100, 40);
             buttonSearch.TabIndex = 5;
@@ -266,19 +271,19 @@
             labelFilter.TabIndex = 6;
             labelFilter.Text = "Фільтрація";
             // 
-            // labelCountry
+            // labelCountryCoin
             // 
-            labelCountry.AutoSize = true;
-            labelCountry.Location = new Point(994, 161);
-            labelCountry.Name = "labelCountry";
-            labelCountry.Size = new Size(56, 20);
-            labelCountry.TabIndex = 7;
-            labelCountry.Text = "Країна";
+            labelCountryCoin.AutoSize = true;
+            labelCountryCoin.Location = new Point(994, 182);
+            labelCountryCoin.Name = "labelCountryCoin";
+            labelCountryCoin.Size = new Size(56, 20);
+            labelCountryCoin.TabIndex = 7;
+            labelCountryCoin.Text = "Країна";
             // 
             // labelMaterial
             // 
             labelMaterial.AutoSize = true;
-            labelMaterial.Location = new Point(994, 208);
+            labelMaterial.Location = new Point(994, 229);
             labelMaterial.Name = "labelMaterial";
             labelMaterial.Size = new Size(73, 20);
             labelMaterial.TabIndex = 8;
@@ -287,7 +292,7 @@
             // labelYearFrom
             // 
             labelYearFrom.AutoSize = true;
-            labelYearFrom.Location = new Point(994, 253);
+            labelYearFrom.Location = new Point(994, 274);
             labelYearFrom.Name = "labelYearFrom";
             labelYearFrom.Size = new Size(52, 20);
             labelYearFrom.TabIndex = 9;
@@ -296,7 +301,7 @@
             // labelYearTo
             // 
             labelYearTo.AutoSize = true;
-            labelYearTo.Location = new Point(996, 299);
+            labelYearTo.Location = new Point(996, 320);
             labelYearTo.Name = "labelYearTo";
             labelYearTo.Size = new Size(49, 20);
             labelYearTo.TabIndex = 10;
@@ -305,43 +310,43 @@
             // labelRareCoins
             // 
             labelRareCoins.AutoSize = true;
-            labelRareCoins.Location = new Point(994, 391);
+            labelRareCoins.Location = new Point(994, 442);
             labelRareCoins.Name = "labelRareCoins";
             labelRareCoins.Size = new Size(116, 20);
             labelRareCoins.TabIndex = 11;
             labelRareCoins.Text = "Рідкісні монети";
             // 
-            // textBoxCountry
+            // textBoxCountryCoin
             // 
-            textBoxCountry.Location = new Point(1128, 158);
-            textBoxCountry.Name = "textBoxCountry";
-            textBoxCountry.Size = new Size(129, 27);
-            textBoxCountry.TabIndex = 12;
+            textBoxCountryCoin.Location = new Point(1128, 179);
+            textBoxCountryCoin.Name = "textBoxCountryCoin";
+            textBoxCountryCoin.Size = new Size(129, 27);
+            textBoxCountryCoin.TabIndex = 12;
             // 
             // textBoxMaterial
             // 
-            textBoxMaterial.Location = new Point(1128, 205);
+            textBoxMaterial.Location = new Point(1128, 226);
             textBoxMaterial.Name = "textBoxMaterial";
             textBoxMaterial.Size = new Size(129, 27);
             textBoxMaterial.TabIndex = 13;
             // 
             // textBoxYearFrom
             // 
-            textBoxYearFrom.Location = new Point(1128, 250);
+            textBoxYearFrom.Location = new Point(1128, 271);
             textBoxYearFrom.Name = "textBoxYearFrom";
             textBoxYearFrom.Size = new Size(129, 27);
             textBoxYearFrom.TabIndex = 14;
             // 
             // textBoxYearTo
             // 
-            textBoxYearTo.Location = new Point(1128, 296);
+            textBoxYearTo.Location = new Point(1128, 317);
             textBoxYearTo.Name = "textBoxYearTo";
             textBoxYearTo.Size = new Size(129, 27);
             textBoxYearTo.TabIndex = 15;
             // 
             // textBoxRareCoins
             // 
-            textBoxRareCoins.Location = new Point(996, 433);
+            textBoxRareCoins.Location = new Point(996, 484);
             textBoxRareCoins.Multiline = true;
             textBoxRareCoins.Name = "textBoxRareCoins";
             textBoxRareCoins.Size = new Size(261, 91);
@@ -370,7 +375,7 @@
             // comboBoxCriterion
             // 
             comboBoxCriterion.FormattingEnabled = true;
-            comboBoxCriterion.Location = new Point(420, 31);
+            comboBoxCriterion.Location = new Point(254, 32);
             comboBoxCriterion.Name = "comboBoxCriterion";
             comboBoxCriterion.Size = new Size(124, 28);
             comboBoxCriterion.TabIndex = 19;
@@ -388,14 +393,63 @@
             // 
             textBoxSearch.Location = new Point(12, 32);
             textBoxSearch.Name = "textBoxSearch";
-            textBoxSearch.Size = new Size(391, 27);
+            textBoxSearch.Size = new Size(225, 27);
             textBoxSearch.TabIndex = 21;
+            // 
+            // buttonBack
+            // 
+            buttonBack.Location = new Point(511, 25);
+            buttonBack.Name = "buttonBack";
+            buttonBack.Size = new Size(110, 40);
+            buttonBack.TabIndex = 22;
+            buttonBack.Text = "Назад";
+            buttonBack.UseVisualStyleBackColor = true;
+            buttonBack.Click += buttonBack_Click;
+            // 
+            // textBoxCountryCollector
+            // 
+            textBoxCountryCollector.Location = new Point(1128, 598);
+            textBoxCountryCollector.Name = "textBoxCountryCollector";
+            textBoxCountryCollector.Size = new Size(129, 27);
+            textBoxCountryCollector.TabIndex = 24;
+            // 
+            // labelCountryCollector
+            // 
+            labelCountryCollector.AutoSize = true;
+            labelCountryCollector.Location = new Point(994, 601);
+            labelCountryCollector.Name = "labelCountryCollector";
+            labelCountryCollector.Size = new Size(56, 20);
+            labelCountryCollector.TabIndex = 23;
+            labelCountryCollector.Text = "Країна";
+            // 
+            // labelForCollectors
+            // 
+            labelForCollectors.AutoSize = true;
+            labelForCollectors.Location = new Point(996, 405);
+            labelForCollectors.Name = "labelForCollectors";
+            labelForCollectors.Size = new Size(141, 20);
+            labelForCollectors.TabIndex = 25;
+            labelForCollectors.Text = "Для колекціонерів:";
+            // 
+            // labelForCoins
+            // 
+            labelForCoins.AutoSize = true;
+            labelForCoins.Location = new Point(994, 141);
+            labelForCoins.Name = "labelForCoins";
+            labelForCoins.Size = new Size(85, 20);
+            labelForCoins.TabIndex = 26;
+            labelForCoins.Text = "Для монет:";
             // 
             // mainform
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1288, 779);
+            Controls.Add(labelForCoins);
+            Controls.Add(labelForCollectors);
+            Controls.Add(textBoxCountryCollector);
+            Controls.Add(labelCountryCollector);
+            Controls.Add(buttonBack);
             Controls.Add(textBoxSearch);
             Controls.Add(labelSearch);
             Controls.Add(comboBoxCriterion);
@@ -405,12 +459,12 @@
             Controls.Add(textBoxYearTo);
             Controls.Add(textBoxYearFrom);
             Controls.Add(textBoxMaterial);
-            Controls.Add(textBoxCountry);
+            Controls.Add(textBoxCountryCoin);
             Controls.Add(labelRareCoins);
             Controls.Add(labelYearTo);
             Controls.Add(labelYearFrom);
             Controls.Add(labelMaterial);
-            Controls.Add(labelCountry);
+            Controls.Add(labelCountryCoin);
             Controls.Add(labelFilter);
             Controls.Add(buttonSearch);
             Controls.Add(buttonDelete);
@@ -419,6 +473,7 @@
             Controls.Add(tabControl);
             Name = "mainform";
             Text = "Довідник нумізмата";
+            FormClosing += mainform_Close;
             Load += mainform_Load;
             tabControl.ResumeLayout(false);
             CoinsPage.ResumeLayout(false);
@@ -452,12 +507,12 @@
         private DataGridViewTextBoxColumn EmailCollectors;
         private DataGridViewTextBoxColumn RareCoins;
         private Label labelFilter;
-        private Label labelCountry;
+        private Label labelCountryCoin;
         private Label labelMaterial;
         private Label labelYearFrom;
         private Label labelYearTo;
         private Label labelRareCoins;
-        private TextBox textBoxCountry;
+        private TextBox textBoxCountryCoin;
         private TextBox textBoxMaterial;
         private TextBox textBoxYearFrom;
         private TextBox textBoxYearTo;
@@ -467,5 +522,10 @@
         private ComboBox comboBoxCriterion;
         private Label labelSearch;
         private TextBox textBoxSearch;
+        private Button buttonBack;
+        private TextBox textBoxCountryCollector;
+        private Label labelCountryCollector;
+        private Label labelForCollectors;
+        private Label labelForCoins;
     }
 }

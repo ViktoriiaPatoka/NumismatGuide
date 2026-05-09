@@ -8,6 +8,8 @@ namespace NumismatGuide
         public mainform()
         {
             InitializeComponent();
+
+            manager.LoadData();
         }
 
         private void mainform_Load(object sender, EventArgs e)
@@ -246,15 +248,28 @@ namespace NumismatGuide
         {
             try
             {
-                var filtered = manager.FilterCoins(
-                    textBoxCountry.Text,
-                    textBoxMaterial.Text,
-                    textBoxYearFrom.Text,
-                    textBoxYearTo.Text
-                );
+                if (activeTable == "coins")
+                {
+                    var filtered = manager.FilterCoins(
+                        textBoxCountryCoin.Text,
+                        textBoxMaterial.Text,
+                        textBoxYearFrom.Text,
+                        textBoxYearTo.Text
+                    );
 
-                dataGridViewCoins.DataSource = null;
-                dataGridViewCoins.DataSource = filtered;
+                    dataGridViewCoins.DataSource = null;
+                    dataGridViewCoins.DataSource = filtered;
+                }
+                else if (activeTable == "collectors")
+                {
+                    var filtered = manager.FilterCollectors(
+                        textBoxCountryCollector.Text,
+                        textBoxRareCoins.Text
+                    );
+
+                    dataGridViewCollectors.DataSource = null;
+                    dataGridViewCollectors.DataSource = filtered;
+                }
             }
             catch (Exception ex)
             {
@@ -264,13 +279,19 @@ namespace NumismatGuide
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            textBoxCountry.Text = "";
+            textBoxCountryCoin.Text = "";
             textBoxMaterial.Text = "";
             textBoxYearFrom.Text = "";
             textBoxYearTo.Text = "";
 
             dataGridViewCoins.DataSource = null;
             dataGridViewCoins.DataSource = manager.Coins;
+
+            textBoxRareCoins.Text = "";
+            textBoxCountryCollector.Text = "";
+
+            dataGridViewCollectors.DataSource = null;
+            dataGridViewCollectors.DataSource = manager.Collectors;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -322,6 +343,26 @@ namespace NumismatGuide
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            textBoxSearch.Clear();
+            comboBoxCriterion.SelectedIndex = -1;
+
+            if (activeTable == "coins")
+            {
+                RefreshCoins();
+            }
+            else if (activeTable == "collectors")
+            {
+                RefreshCollectors();
+            }
+        }
+
+        private void mainform_Close(object sender, FormClosingEventArgs e)
+        {
+            manager.SaveData();
         }
     }
 }
